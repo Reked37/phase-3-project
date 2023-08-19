@@ -7,7 +7,7 @@ def create_new_entry(session):
     username=input('Username: ')
     password=input('Password: ')
 
-    new_entry=Website(website=website.lower, username=username, password=password)
+    new_entry=Website(website=website, username=username, password=password)
     session.add(new_entry)
     session.commit()
     return new_entry
@@ -17,12 +17,12 @@ def add_to_database():
     Session= sessionmaker(bind=engine)
     session= Session()
 
-    new_entry=create_new_entry(session)
+    entry=create_new_entry(session)
 
     print("New entry created:")
-    print(f"Website: {new_entry.website}")
-    print(f"Username: {new_entry.username}")
-    print(f"Password: {new_entry.password}")
+    print(f"Website: {entry.website}")
+    print(f"Username: {entry.username}")
+    print(f"Password: {entry.password}")
 
     session.close()
 
