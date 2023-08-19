@@ -1,4 +1,5 @@
-from create import create_new_entry
+from functions.create import add_to_database
+from functions.delete import delete_from_database
 
 def main_menu():
     print('Welcome to Password Manager aka P-Man')
@@ -8,12 +9,12 @@ def decision(choice):
     decision= choice.lower()
     print(decision)
     if decision == 'create':
-        create_new_entry()
+        add_to_database()
     elif decision == 'search':
         print('searched')
     elif decision == 'change':
         print('changed')
     elif decision == 'delete':
-        print('deleted')
+        delete_from_database()
     else:
         print(f'{choice} is not a valid choice')
