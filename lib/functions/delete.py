@@ -5,8 +5,9 @@ from db.models import Website
 def delete_entry(session, website_name):
     # website_name=input('Website you want deleted: ')
     entry=session.query(Website).filter_by(website=website_name).first()
-    print(entry.website)
-    if entry:
+    confirmation= input(f'Are you sure you want to delete {entry.website}? (Y/N): ').lower
+    
+    if confirmation == 'y' or 'yes':
         session.delete(entry)
         session.commit()
         print(f'Website {entry.website} has been deleted')

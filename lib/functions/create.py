@@ -19,10 +19,7 @@ def add_to_database():
 
     entry=create_new_entry(session)
 
-    print("New entry created:")
-    print(f"Website: {entry.website}")
-    print(f"Username: {entry.username}")
-    print(f"Password: {entry.password}")
+    print("New entry created!")
 
     session.close()
 
