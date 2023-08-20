@@ -8,17 +8,16 @@ from db.models import User
 
 def main_menu():
     print('Welcome to my phase 3 project!')
-    user_or_website=input("Type in 'Add' to add a user or 'Website' to enter login info").lower()
+    user_or_website=input("Type in 'Add' to add a user or 'Website' to enter login info ").lower()
     
     if user_or_website == 'add':
-        add_login_details()
-    elif user_or_website == 'website':
         add_user()
+    elif user_or_website == 'website':
+        add_login_details()
 
     
 def add_login_details():
-    print("Type in 'Create' for new entry, 'Search' for password, 'Change' to modify an entry, or 'Delete' to delete an entry")
-    decision= choice.lower()
+    decision= input("Type in 'Create' for new entry, 'Search' for password, 'Change' to modify an entry, or 'Delete' to delete an entry ")
     if decision == 'create':
         add_to_database()
     elif decision == 'search':
@@ -35,7 +34,12 @@ def add_user():
     Session= sessionmaker(bind=engine)
     session= Session()
 
-    username=input("What's your username?")
-    web_browser=input("What web browser do you use?")
+    username=input("What's your username? ")
+    web_browser=input("What web browser do you use? ")
 
-    entry= User()
+    entry= User(name_of_user=username, web_browser=web_browser)
+    session.add(entry)
+    session.commit()
+    print(f'{entry.name_of_user} has been added!')
+    session.close()
+    

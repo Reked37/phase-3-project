@@ -14,6 +14,12 @@ def delete_table():
     session.commit()
 
 def create_records():
+    website_example=Website(
+        website='Twitter',
+        username='Tweet',
+        password='XTwitter'
+    )
+
     websites=[Website(
         website= fake.name(),
         username= fake.name(),
@@ -24,10 +30,15 @@ def create_records():
         web_browser=fake.name()
     ) for i in range(10)]
 
-    session.add_all(websites + users)
+    website_users=[WebsiteUser(
+        website=websites[i],
+        user=users[i]
+    ) for i in range(10)]
+
+    session.add_all(websites + users + website_users)
     session.commit()
-    return websites, users
+    return websites, users, website_users, website_example
 
 if __name__ == '__main__':
     delete_table()
-    websites, users = create_records()
+    websites, users, website_users, website_example = create_records()
