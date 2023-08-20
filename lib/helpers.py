@@ -13,10 +13,10 @@ def main_menu():
     if user_or_website == 'add':
         add_user()
     elif user_or_website == 'website':
-        add_login_details()
+        website_login_details()
 
     
-def add_login_details():
+def website_login_details():
     decision= input("Type in 'Create' for new entry, 'Search' for password, 'Change' to modify an entry, or 'Delete' to delete an entry ")
     if decision == 'create':
         add_to_database()

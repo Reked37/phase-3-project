@@ -7,8 +7,9 @@ def create_new_entry(session):
     username=input('Username: ')
     password=input('Password: ')
 
-    new_entry=Website(website=website, username=username, password=password)
-    session.add(new_entry)
+    #dictionary
+    new_entry={'website': website, 'username': username, 'password': password}
+    session.add(Website(**new_entry))
     session.commit()
     return new_entry
 
