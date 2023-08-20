@@ -3,7 +3,6 @@ from sqlalchemy.orm import sessionmaker
 from db.models import Website
 
 def delete_entry(session, website_name):
-    # website_name=input('Website you want deleted: ')
     entry=session.query(Website).filter_by(website=website_name).first()
     confirmation= input(f'Are you sure you want to delete {entry.website}? (Y/N): ').lower
     

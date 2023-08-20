@@ -7,5 +7,3 @@ from db.models import Website
 
 if __name__ == "__main__":
     main_menu()
-    choice= input('Type in your choice: ')
-    decision(choice)

@@ -2,12 +2,22 @@ from functions.create import add_to_database
 from functions.delete import delete_from_database
 from functions.search import look_for_entry
 from functions.change import look_in_database
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from db.models import User
 
 def main_menu():
-    print('Welcome to Password Manager aka P-Man')
-    print("Type in 'Create' for new entry, 'Search' for password, 'Change' to modify an entry, or 'Delete' to delete an entry")
+    print('Welcome to my phase 3 project!')
+    user_or_website=input("Type in 'Add' to add a user or 'Website' to enter login info").lower()
     
-def decision(choice):
+    if user_or_website == 'add':
+        add_login_details()
+    elif user_or_website == 'website':
+        add_user()
+
+    
+def add_login_details():
+    print("Type in 'Create' for new entry, 'Search' for password, 'Change' to modify an entry, or 'Delete' to delete an entry")
     decision= choice.lower()
     if decision == 'create':
         add_to_database()
@@ -19,3 +29,13 @@ def decision(choice):
         delete_from_database()
     else:
         print(f'{choice} is not a valid choice')
+
+def add_user():
+    engine=create_engine('sqlite:///projectdatabase.db')
+    Session= sessionmaker(bind=engine)
+    session= Session()
+
+    username=input("What's your username?")
+    web_browser=input("What web browser do you use?")
+
+    entry= User()
