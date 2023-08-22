@@ -11,15 +11,13 @@ session= Session()
 fake=Faker()
 # website_count=session.query(Website).count()
 
-
-
 def delete_table():
   session.query(Website).delete()
   session.query(User).delete()
   session.commit()
 
 def create_records():
-    titles_of_websites=['Twitter', 'Kick']
+    titles_of_websites=['Twitter', 'Facebook', 'Twitch', 'Youtube', 'Kick']
     websites=[]
     for website_name in titles_of_websites:
        website=Website(website=website_name, created=fake.date_time())
@@ -27,12 +25,11 @@ def create_records():
        session.commit()
        websites.append(website)
 
-    list_of_users=[]
     users=[
-        User(username='Reked', password=12345, website_id=websites[0].id),
-        User(username='bluefin', password='penguin', website_id=websites[1].id),
-        User(username='Cleo', password='thedog', website_id=websites[1].id),
-        User(username='Rusty', password='corgi', website_id=websites[0].id)
+        User(username='Reked', password='idk', website_id=websites[0].id, website_name='Twitter'),
+        User(username='bluefin', password='penguin', website_id=websites[1].id, website_name='Facebook'),
+        User(username='Cleo', password='thedog', website_id=websites[1].id, website_name='Facebook'),
+        User(username='Rusty', password='corgi', website_id=websites[0].id, website_name='Twitter')
     ]
     session.add_all(users)
     session.commit()

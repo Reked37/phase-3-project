@@ -8,12 +8,12 @@ from db.models import User
 
 def main_menu():
     print('Welcome to my phase 3 project!')
-    user_or_website=input("Type in 'Add' to add a user or 'Website' to enter login info ").lower()
+    user_or_website=input("Type in 'Add' to add a user login info or 'Website' to add a website ").lower()
     
     if user_or_website == 'add':
-        add_user()
-    elif user_or_website == 'website':
         website_login_details()
+    elif user_or_website == 'website':
+        add_user()
 
     
 def website_login_details():
@@ -37,7 +37,7 @@ def add_user():
     username=input("What's your username? ")
     web_browser=input("What web browser do you use? ")
 
-    entry= User(name_of_user=username, web_browser=web_browser)
+    entry= User(username=username, password=web_browser)
     session.add(entry)
     session.commit()
     print(f'{entry.name_of_user} has been added!')
