@@ -1,44 +1,44 @@
 from faker import Faker
+from faker.providers import date_time
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import Website, User, WebsiteUser
+from models import Website, User
+import random
 
 engine=create_engine('sqlite:///projectdatabase.db')
 Session= sessionmaker(bind=engine)
 session= Session()
 fake=Faker()
+# website_count=session.query(Website).count()
+
+
 
 def delete_table():
-    session.query(Website).delete()
-    session.query(User).delete()
-    session.commit()
+  session.query(Website).delete()
+  session.query(User).delete()
+  session.commit()
 
 def create_records():
-    website_example=Website(
-        website='Twitter',
-        username='Tweet',
-        password='XTwitter'
-    )
+    titles_of_websites=['Twitter', 'Kick']
+    websites=[]
+    for website_name in titles_of_websites:
+       website=Website(website=website_name, created=fake.date_time())
+       session.add(website)
+       session.commit()
+       websites.append(website)
 
-    websites=[Website(
-        website= fake.name(),
-        username= fake.name(),
-        password= fake.name()
-    ) for i in range(10)]
-    users=[User(
-        name_of_user=fake.name(),
-        web_browser=fake.name()
-    ) for i in range(10)]
-
-    website_users=[WebsiteUser(
-        website=websites[i],
-        user=users[i]
-    ) for i in range(10)]
-
-    session.add_all(websites + users + website_users)
+    list_of_users=[]
+    users=[
+        User(username='Reked', password=12345, website_id=websites[0].id),
+        User(username='bluefin', password='penguin', website_id=websites[1].id),
+        User(username='Cleo', password='thedog', website_id=websites[1].id),
+        User(username='Rusty', password='corgi', website_id=websites[0].id)
+    ]
+    session.add_all(users)
     session.commit()
-    return websites, users, website_users, website_example
+    session.close()
+    return websites, users
 
 if __name__ == '__main__':
     delete_table()
-    websites, users, website_users, website_example = create_records()
+    websites, users = create_records()
