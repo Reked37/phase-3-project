@@ -18,7 +18,8 @@ def delete_table():
   session.commit()
 
 def create_records():
-    titles_of_websites=['Twitter', 'Facebook', 'Twitch', 'Youtube', 'Kick']
+    #tuples
+    titles_of_websites=('Twitter', 'Facebook', 'Twitch', 'Youtube', 'Kick')
     websites=[]
     for website_name in titles_of_websites:
        website=Website(website=website_name, created=fake.date_time())

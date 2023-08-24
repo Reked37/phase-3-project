@@ -38,6 +38,7 @@ def add_website():
     new_website=input("Name of website: ")
     date_created=input("Enter date that the website was created? YYYY-MM-DD. ")
     format_date=datetime.strptime(date_created, '%Y-%m-%d')
+    
 
     entry= Website(website=new_website, created=format_date)
     session.add(entry)
