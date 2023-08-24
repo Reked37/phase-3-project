@@ -2,7 +2,7 @@ from faker import Faker
 from faker.providers import date_time
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import Website, User
+from models import Website, User, Browser
 import random
 
 engine=create_engine('sqlite:///projectdatabase.db')
@@ -14,6 +14,7 @@ fake=Faker()
 def delete_table():
   session.query(Website).delete()
   session.query(User).delete()
+  session.query(Browser).delete()
   session.commit()
 
 def create_records():
@@ -25,17 +26,27 @@ def create_records():
        session.commit()
        websites.append(website)
 
+    browser_list=['Chrome', 'Firefox', 'Safari', 'Internet Explorer']
+    company_list=['Google', 'Mozilla', 'Apple', 'Microsoft']
+    browsers=[]
+    for browser_name, company_name in zip(browser_list, company_list):
+        browser= Browser(browser_name=browser_name, company=company_name)
+        session.add(browser)
+        session.commit()
+        browsers.append(browser)
+    
+
     users=[
-        User(username='Reked', password='idk', website_id=websites[0].id, website_name='Twitter'),
-        User(username='bluefin', password='penguin', website_id=websites[1].id, website_name='Facebook'),
-        User(username='Cleo', password='thedog', website_id=websites[1].id, website_name='Facebook'),
-        User(username='Rusty', password='corgi', website_id=websites[0].id, website_name='Twitter')
+        User(username='Reked', password='idk', website_id=websites[0].id, website_name='Twitter', browser_id=browsers[0].id),
+        User(username='bluefin', password='penguin', website_id=websites[1].id, website_name='Facebook', browser_id=browsers[3].id),
+        User(username='Cleo', password='thedog', website_id=websites[1].id, website_name='Facebook', browser_id=browsers[1].id),
+        User(username='Rusty', password='corgi', website_id=websites[0].id, website_name='Twitter', browser_id=browsers[0].id)
     ]
     session.add_all(users)
     session.commit()
     session.close()
-    return websites, users
+    return websites, users, browsers
 
 if __name__ == '__main__':
     delete_table()
-    websites, users = create_records()
+    websites, users, browsers = create_records()

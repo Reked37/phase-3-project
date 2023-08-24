@@ -12,6 +12,7 @@ class User(Base):
     username= Column(String())
     password= Column(String())
     website_id= Column(Integer(), ForeignKey('websites.id'))
+    browser_id= Column(Integer(), ForeignKey('browsers.id'))
 
     def __repr__(self):
         return f'User(id={self.id},' + \
@@ -34,15 +35,15 @@ class Website(Base):
         f'website={self.website},' + \
         f'created={self.created})'
 
-# class WebsiteUser(Base):
-#     __tablename__= 'website_users'
+class Browser(Base):
+    __tablename__='browsers'
 
-#     id= Column(Integer(), primary_key=True)
+    id= Column(Integer(), primary_key=True)
+    browser_name= Column(String())
+    company= Column(String())
 
-#     def __repr__(self):
-#         return f'WebsiteUser(id={self.id},' + \
-#         f'website_id={self.website_id},' + \
-#         f'user_id={self.user_id})'
+    preferred_browser= relationship('User', backref=backref('browser'))
+
 
 
 

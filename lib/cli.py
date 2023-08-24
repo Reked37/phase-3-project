@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # import fire
-from helpers import main_menu, website_login_details, add_user
+from helpers import main_menu, user_interface, add_website
 from db.models import Website
 
 

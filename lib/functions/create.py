@@ -1,11 +1,13 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from db.models import User, Website
+from db.models import User, Website, Browser
 
-def create_new_entry(session, website_name, username, password):
+def create_new_entry(session, website_name, username, password, entered_browser):
     valid_website=session.query(Website).filter_by(website=website_name).first()
+    valid_browser= session.query(Browser).filter_by(browser_name=entered_browser).first()
+
     #dictionary
-    new_entry={'website_name': website_name, 'username': username, 'password': password, 'website_id':valid_website.id}
+    new_entry={'website_name': website_name, 'username': username, 'password': password, 'website_id':valid_website.id, 'browser_id': valid_browser.id}
     session.add(User(**new_entry))
     session.commit()
     return new_entry
@@ -15,11 +17,12 @@ def add_to_database():
     Session= sessionmaker(bind=engine)
     session= Session()
 
+    entered_browser=input('What browser do you prefer? ')
     website_name=input('Name of website: ')
     username=input('Username: ')
     password=input('Password: ')
 
-    entry=create_new_entry(session, website_name, username, password)
+    entry=create_new_entry(session, website_name, username, password, entered_browser)
 
     print("New entry created!")
 

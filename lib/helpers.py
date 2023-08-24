@@ -4,19 +4,20 @@ from functions.search import look_for_entry
 from functions.change import look_in_database
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from db.models import User
+from db.models import User, Website
+from datetime import datetime
 
 def main_menu():
     print('Welcome to my phase 3 project!')
-    user_or_website=input("Type in 'Add' to add a user login info or 'Website' to add a website ").lower()
+    user_or_website=input("Type in 'User' to enter a user interface or 'Website' to add a website ").lower()
     
-    if user_or_website == 'add':
-        website_login_details()
+    if user_or_website == 'user':
+        user_interface()
     elif user_or_website == 'website':
-        add_user()
+        add_website()
 
     
-def website_login_details():
+def user_interface():
     decision= input("Type in 'Create' for new entry, 'Search' for password, 'Change' to modify an entry, or 'Delete' to delete an entry ")
     if decision == 'create':
         add_to_database()
@@ -29,17 +30,18 @@ def website_login_details():
     else:
         print(f'{choice} is not a valid choice')
 
-def add_user():
+def add_website():
     engine=create_engine('sqlite:///projectdatabase.db')
     Session= sessionmaker(bind=engine)
     session= Session()
 
-    username=input("What's your username? ")
-    web_browser=input("What web browser do you use? ")
+    new_website=input("Name of website: ")
+    date_created=input("Enter date that the website was created? YYYY-MM-DD. ")
+    format_date=datetime.strptime(date_created, '%Y-%m-%d')
 
-    entry= User(username=username, password=web_browser)
+    entry= Website(website=new_website, created=format_date)
     session.add(entry)
     session.commit()
-    print(f'{entry.name_of_user} has been added!')
+    print(f'{entry.website} has been added!')
     session.close()
     
