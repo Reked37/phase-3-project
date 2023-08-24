@@ -9,7 +9,6 @@ engine=create_engine('sqlite:///projectdatabase.db')
 Session= sessionmaker(bind=engine)
 session= Session()
 fake=Faker()
-# website_count=session.query(Website).count()
 
 def delete_table():
   session.query(Website).delete()
@@ -27,6 +26,7 @@ def create_records():
        session.commit()
        websites.append(website)
 
+    #list
     browser_list=['Chrome', 'Firefox', 'Safari', 'Internet Explorer']
     company_list=['Google', 'Mozilla', 'Apple', 'Microsoft']
     browsers=[]
