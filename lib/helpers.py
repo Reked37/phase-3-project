@@ -18,7 +18,7 @@ def main_menu():
 
     
 def user_interface():
-    decision= input("Type in 'Create' for new entry, 'Search' for password, 'Change' to modify an entry, or 'Delete' to delete an entry ")
+    decision= input("Type in 'Create' for new entry, 'Search' for login details, 'Change' to modify an entry, or 'Delete' to delete an entry ").lower()
     if decision == 'create':
         add_to_database()
     elif decision == 'search':
