@@ -6,6 +6,12 @@ def create_new_entry(session, website_name, username, password, entered_browser)
     valid_website=session.query(Website).filter_by(website=website_name).first()
     valid_browser= session.query(Browser).filter_by(browser_name=entered_browser).first()
 
+    if not valid_website:
+        print(f'{website_name} is not a valid website')
+
+    if not valid_browser:
+        print(f'{entered_browser} is not a valid browser')
+
     #dictionary
     new_entry={'website_name': website_name, 'username': username, 'password': password, 'website_id':valid_website.id, 'browser_id': valid_browser.id}
     session.add(User(**new_entry))
