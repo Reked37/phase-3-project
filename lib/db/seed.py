@@ -38,10 +38,10 @@ def create_records():
     
 
     users=[
-        User(username='Reked', password='idk', website_id=websites[0].id, website_name='Twitter', browser_id=browsers[0].id),
-        User(username='bluefin', password='penguin', website_id=websites[1].id, website_name='Facebook', browser_id=browsers[3].id),
-        User(username='Cleo', password='thedog', website_id=websites[1].id, website_name='Facebook', browser_id=browsers[1].id),
-        User(username='Rusty', password='corgi', website_id=websites[0].id, website_name='Twitter', browser_id=browsers[0].id)
+        User(username='Reked', password='idk', website_id=websites[0].id, browser_id=browsers[0].id),
+        User(username='bluefin', password='penguin', website_id=websites[1].id, browser_id=browsers[3].id),
+        User(username='Cleo', password='thedog', website_id=websites[1].id, browser_id=browsers[1].id),
+        User(username='Rusty', password='corgi', website_id=websites[0].id, browser_id=browsers[0].id)
     ]
     session.add_all(users)
     session.commit()

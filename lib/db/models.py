@@ -8,7 +8,6 @@ class User(Base):
     __tablename__ = 'users'
 
     id= Column(Integer(), primary_key=True)
-    website_name= Column(String())
     username= Column(String())
     password= Column(String())
     website_id= Column(Integer(), ForeignKey('websites.id'))
@@ -16,7 +15,6 @@ class User(Base):
 
     def __repr__(self):
         return f'User(id={self.id},' + \
-        f'website_name={self.website_name},' + \
         f'username={self.username},' + \
         f'password={self.password})'
 
