@@ -10,13 +10,15 @@ from datetime import datetime
 def main_menu():
     print('Welcome to my phase 3 project!')
     user_or_website=input("Type in 'User' to enter a user interface, 'Website' to add a website, 'Exit' to leave application: ").lower()
-
     if user_or_website == 'user':
-        user_interface(user_or_website)
+      user_interface(user_or_website)
     elif user_or_website == 'website':
-        add_website()
+      add_website()
+    elif user_or_website == 'exit':
+      exit()
     else:
-        exit()
+      print(f'{user_or_website} is not a valid option. Please type in one of the choices.')
+      main_menu()
 
     
 def user_interface(user_or_website):
@@ -34,21 +36,21 @@ def user_interface(user_or_website):
         main_menu()
       else:
         print(f'{decision} is not a valid choice')
-        user_interface()
+        user_interface(user_or_website)
 
 def add_website():
-    engine=create_engine('sqlite:///projectdatabase.db')
-    Session= sessionmaker(bind=engine)
-    session= Session()
+  engine=create_engine('sqlite:///projectdatabase.db')
+  Session= sessionmaker(bind=engine)
+  session= Session()
 
-    new_website=input("Name of website: ")
-    date_created=input("Enter date that the website was created? YYYY-MM-DD. ")
-    format_date=datetime.strptime(date_created, '%Y-%m-%d')
-    
+  new_website=input("Name of new website: ")
+  date_created=input("Enter date that the website was created? YYYY-MM-DD. ")
+  format_date=datetime.strptime(date_created, '%Y-%m-%d')
 
-    entry= Website(website=new_website, created=format_date)
-    session.add(entry)
-    session.commit()
-    print(f'{entry.website} has been added!')
-    session.close()
+  entry= Website(website=new_website, created=format_date)
+  session.add(entry)
+  session.commit()
+  print(f'{entry.website} has been added!')
+  session.close()
+  main_menu()
     

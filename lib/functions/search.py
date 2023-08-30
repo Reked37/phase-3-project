@@ -6,10 +6,10 @@ def search_for_entry(session, entered_username):
     entry=session.query(User).filter_by(username=entered_username).first()
 
     if not entry:
-        print(f'{entered_username} not found.')
+        print(f'{entered_username} not found. Please try again.')
         look_for_entry()
     else:
-      print(f'Username: {entry.username} and Password: {entry.password} for {entry.website_name}')
+      print(f'Username: {entry.username} and Password: {entry.password} for {entry.website.website}')
 
 def look_for_entry():
     engine=create_engine('sqlite:///projectdatabase.db')
