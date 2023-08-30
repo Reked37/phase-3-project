@@ -12,6 +12,7 @@ def delete_entry(session, user_to_delete):
         print(f'Website {entry.username} has been deleted')
     else:
         print('Entry was not found')
+        delete_from_database()
 
 def delete_from_database():
     engine=create_engine('sqlite:///projectdatabase.db')

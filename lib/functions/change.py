@@ -24,6 +24,7 @@ def change_an_entry(session, lookup_username):
         print('Password has been updated!')
     else:
         print(f"Can not update '{choice_what_to_update}'")
+        look_in_database()
 
 
 def look_in_database():

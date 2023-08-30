@@ -9,26 +9,32 @@ from datetime import datetime
 
 def main_menu():
     print('Welcome to my phase 3 project!')
-    user_or_website=input("Type in 'User' to enter a user interface or 'Website' to add a website ").lower()
-    
+    user_or_website=input("Type in 'User' to enter a user interface, 'Website' to add a website, 'Exit' to leave application: ").lower()
+
     if user_or_website == 'user':
-        user_interface()
+        user_interface(user_or_website)
     elif user_or_website == 'website':
         add_website()
+    else:
+        exit()
 
     
-def user_interface():
-    decision= input("Type in 'Create' for new entry, 'Search' for login details, 'Change' to modify an entry, or 'Delete' to delete an entry ").lower()
-    if decision == 'create':
+def user_interface(user_or_website):
+    while user_or_website:
+      decision= input("Type in 'Create' for new entry, 'Search' for login details, 'Change' to modify an entry, 'Delete' to delete an entry, or 'Back' to go back to the main menu ").lower()
+      if decision == 'create':
         add_to_database()
-    elif decision == 'search':
+      elif decision == 'search':
         look_for_entry()
-    elif decision == 'change':
+      elif decision == 'change':
         look_in_database()
-    elif decision == 'delete':
+      elif decision == 'delete':
         delete_from_database()
-    else:
-        print(f'{choice} is not a valid choice')
+      elif decision == 'back':
+        main_menu()
+      else:
+        print(f'{decision} is not a valid choice')
+        user_interface()
 
 def add_website():
     engine=create_engine('sqlite:///projectdatabase.db')

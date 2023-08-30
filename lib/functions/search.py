@@ -7,6 +7,7 @@ def search_for_entry(session, entered_username):
 
     if not entry:
         print(f'{entered_username} not found.')
+        look_for_entry()
     else:
       print(f'Username: {entry.username} and Password: {entry.password} for {entry.website_name}')
 
