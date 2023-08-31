@@ -2,15 +2,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from db.models import User
 
-def delete_entry(session, verify_user):
-    pass
-
-
 def verify_user(session, user_to_delete):
     verify_user=session.query(User).filter_by(username=user_to_delete).first()
     if not verify_user:
         print(f'{user_to_delete} was not found. Please try again.')
         delete_from_database()
+    
     
     confirmation= input(f'Are you sure you want to delete {verify_user.username}? (Y/N): ').lower()
     if confirmation == 'y' or confirmation == 'yes':
@@ -26,5 +23,8 @@ def delete_from_database():
     session= Session()
 
     user_to_delete=input('What user do you want deleted? ')
+    if user_to_delete == 'back':
+        return
+
     deletion=verify_user(session, user_to_delete)
     session.close()

@@ -41,6 +41,9 @@ def look_in_database():
     session= Session()
 
     lookup_username=input('What user do you want to update? ')
+    if lookup_username == 'back':
+        return
+
     verify_user(session, lookup_username)
     session.close()
 

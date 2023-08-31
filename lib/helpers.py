@@ -7,23 +7,25 @@ from sqlalchemy.orm import sessionmaker
 from db.models import User, Website
 from datetime import datetime
 
+def opener():
+  print("Welcome to my Phase 3 Project! It's a login info manager.")
+  main_menu()
+   
 def main_menu():
-    print('Welcome to my phase 3 project!')
-    user_or_website=input("Type in 'User' to enter a user interface, 'Website' to add a website, 'Exit' to leave application: ").lower()
-    if user_or_website == 'user':
-      user_interface(user_or_website)
-    elif user_or_website == 'website':
-      add_website()
-    elif user_or_website == 'exit':
-      exit()
-    else:
-      print(f'{user_or_website} is not a valid option. Please type in one of the choices.')
-      main_menu()
-
+  user_or_website=input("Type in 'User' to enter a user interface, 'Website' to add a website, 'Exit' to leave application: ").lower()
+  if user_or_website == 'user':
+    user_interface(user_or_website)
+  elif user_or_website == 'website':
+    add_website()
+  elif user_or_website == 'exit':
+    exit()
+  else:
+    print(f'{user_or_website} is not a valid option. Please type in one of the choices.')
+    main_menu()
     
 def user_interface(user_or_website):
     while user_or_website:
-      decision= input("Type in 'Create' for new entry, 'Search' for login details, 'Change' to modify an entry, 'Delete' to delete an entry, or 'Back' to go back to the main menu ").lower()
+      decision= input("Type in 'Create' for new entry, 'Search' for login details, 'Change' to modify an entry, 'Delete' to delete an entry, or 'Back' to go back to the previous option: ").lower()
       if decision == 'create':
         add_to_database()
       elif decision == 'search':
@@ -44,8 +46,12 @@ def add_website():
   session= Session()
 
   new_website=input("Name of new website: ")
-  date_created=input("Enter date that the website was created? YYYY-MM-DD. ")
-  format_date=datetime.strptime(date_created, '%Y-%m-%d')
+
+  if new_website == 'back' or new_website == 'Back':
+    main_menu()
+  else:
+    date_created=input("Enter date that the website was created? YYYY-MM-DD. ")
+    format_date=datetime.strptime(date_created, '%Y-%m-%d')
 
   entry= Website(website=new_website, created=format_date)
   session.add(entry)
