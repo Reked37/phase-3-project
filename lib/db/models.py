@@ -39,8 +39,7 @@ class Browser(Base):
     id= Column(Integer(), primary_key=True)
     browser_name= Column(String())
     company= Column(String())
-
-    preferred_browser= relationship('User', backref=backref('browser'))
+    users= relationship('User', backref=backref('browser'))
 
 
 
